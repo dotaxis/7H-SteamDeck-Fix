@@ -2,6 +2,7 @@
 Streamlining the install process of 7th Heaven Canary on Steam Deck
 
 Steps:
+* Download FFNx from [here](https://github.com/julianxhokaxhiu/FFNx/releases/download/1.14.0/FFNx-FF7_1998-v1.14.0.0.zip) and place it in the directory with these files
 * Add non-steam game and refer to the installer
 * Name it '7th Heaven' (Important! That's how I am able to find the APP_ID)
 * Select ProtonGE under compatibility tab (I upgraded to GE7-45)
