@@ -129,12 +129,10 @@ echo
 echo "7th Heaven Canary has been successfully installed!"
 FULL_PATH="$WINEPATH/drive_c/$DEFAULT_7TH_HEAVEN_DIRECTORY"
 echo
-echo "| Open the Non-Steam Game entry in your library and change:"
+echo "| Altering Steam Shortcut"
+SHORTCUTSFILE=$(ls -td ${HOME}/.steam/steam/userdata/* | head -1)/config/shortcuts.vdf
+sed -i "s:$(pwd)/${SEVENHEAVEN}:${FULL_PATH}/7th Heaven.exe:" $SHORTCUTSFILE
+sed -i "s:$(pwd):${FULL_PATH}:" $SHORTCUTSFILE
+echo "| Done!"
 echo "| "
-echo "| TARGET:"
-echo "| \"$FULL_PATH/7th Heaven.exe\""
-echo "| "
-echo "| START IN:"
-echo "| \"$FULL_PATH/\""
-echo "| "
-echo "| Run the game and enjoy!"
+echo "| ***** RESTART STEAM BEFORE LAUNCHING THE GAME *****"
