@@ -83,7 +83,7 @@ echo -e "The installation should be complete. Close the wizard.\nPress enter whe
 read -r
 
 # Protontricks APP_ID finder + dinput fix
-read -rp "Is your Non-Steam Game named: \"${DEFAULT_7TH_HEAVEN_APP_NAME}\"? [Y/n] " USE_DEFAULT_NAME
+read -rp "Is your Non-Steam Game named: \"${DEFAULT_7TH_HEAVEN_APP_NAME}\"? [y/N] " USE_DEFAULT_NAME
 
 SEVENTH_HEAVEN_APP_NAME=$DEFAULT_7TH_HEAVEN_APP_NAME
 if [[ ! $USE_DEFAULT_NAME =~ ^[Yy]$ ]]; then
@@ -99,7 +99,7 @@ echo "Resolving PFX path..."
 WINEPATH="${HOME}/.steam/steam/steamapps/compatdata/$APP_ID/pfx"
 
 echo "PFX path detected at $WINEPATH"
-read -rp "Do you want to use this path? [Y/n] "
+read -rp "Do you want to use this path? [y/N] "
 if [[ ! $REPLY =~ ^[Yy]$ ]]; then
   read -rp 'Manually enter PFX path: ' WINEPATH
 fi
@@ -127,7 +127,7 @@ unzip -o "$FFNX" -d "$WINEPATH/drive_c/FF7"
 
 echo
 echo "7th Heaven Canary has been successfully installed!"
-FULL_PATH="$WINEPATH/drive_c/$DEFAULT_7TH_HEAVEN_DIRECTORY/"
+FULL_PATH="$WINEPATH/drive_c/$DEFAULT_7TH_HEAVEN_DIRECTORY"
 echo
 echo "| Open the Non-Steam Game entry in your library and change:"
 echo "| "
@@ -135,6 +135,6 @@ echo "| TARGET:"
 echo "| \"$FULL_PATH/7th Heaven.exe\""
 echo "| "
 echo "| START IN:"
-echo "| \"$FULL_PATH\""
+echo "| \"$FULL_PATH/\""
 echo "| "
 echo "| Run the game and enjoy!"
