@@ -107,12 +107,6 @@ fi
 [ ! -d "$WINEPATH" ] && echo "Invalid PFX path at $WINEPATH. Abort." && exit
 
 echo
-echo "Removing & installing dinput..."
-rm "$WINEPATH/drive_c/windows/syswow64/dinput.dll"
-echo
-protontricks $APP_ID dinput 2&> /dev/null
-
-echo
 echo "Copying FF7 directory..."
 mkdir -p "$WINEPATH/drive_c"
 echo "FF7DISC1" > "$WINEPATH/drive_c/.windows-label"
@@ -121,18 +115,23 @@ echo "44000000" > "$WINEPATH/drive_c/.windows-serial"
 cp -Rfp "$FF7_LOCATION" "$WINEPATH/drive_c/FF7"
 mkdir -p $WINEPATH/drive_c/FF7/mods/{7thHeaven,textures}
 cp dxvk.conf "$WINEPATH/drive_c/$DEFAULT_7TH_HEAVEN_DIRECTORY"
-
+echo
 echo "Installing FFNx..."
 unzip -o "$FFNX" -d "$WINEPATH/drive_c/FF7"
-
 echo
-echo "7th Heaven Canary has been successfully installed!"
-FULL_PATH="$WINEPATH/drive_c/$DEFAULT_7TH_HEAVEN_DIRECTORY"
-echo
-echo "| Altering Steam Shortcut"
+echo "Altering Steam Shortcut"
 SHORTCUTSFILE=$(ls -td ${HOME}/.steam/steam/userdata/* | head -1)/config/shortcuts.vdf
 sed -i "s:$(pwd)/${SEVENHEAVEN}:${FULL_PATH}/7th Heaven.exe:" $SHORTCUTSFILE
 sed -i "s:$(pwd):${FULL_PATH}:" $SHORTCUTSFILE
-echo "| Done!"
-echo "| "
-echo "| ***** RESTART STEAM BEFORE LAUNCHING THE GAME *****"
+echo "Done!"
+echo
+echo "Removing & installing dinput..."
+echo
+rm "$WINEPATH/drive_c/windows/syswow64/dinput.dll"
+echo
+protontricks $APP_ID dinput
+echo
+clear
+FULL_PATH="$WINEPATH/drive_c/$DEFAULT_7TH_HEAVEN_DIRECTORY"
+echo "*******  RESTART STEAM BEFORE LAUNCHING THE GAME  *******"
+echo "7th Heaven Canary has been successfully installed!"
