@@ -120,6 +120,7 @@ echo "Installing FFNx..."
 unzip -o "$FFNX" -d "$WINEPATH/drive_c/FF7"
 echo
 echo "Altering Steam Shortcut"
+FULL_PATH="$WINEPATH/drive_c/$DEFAULT_7TH_HEAVEN_DIRECTORY"
 SHORTCUTSFILE=$(ls -td ${HOME}/.steam/steam/userdata/* | head -1)/config/shortcuts.vdf
 sed -i "s:$(pwd)/${SEVENHEAVEN}:${FULL_PATH}/7th Heaven.exe:" $SHORTCUTSFILE
 sed -i "s:$(pwd):${FULL_PATH}:" $SHORTCUTSFILE
@@ -132,6 +133,5 @@ echo
 protontricks $APP_ID dinput
 echo
 clear
-FULL_PATH="$WINEPATH/drive_c/$DEFAULT_7TH_HEAVEN_DIRECTORY"
 echo "*******  RESTART STEAM BEFORE LAUNCHING THE GAME  *******"
 echo "7th Heaven Canary has been successfully installed!"
