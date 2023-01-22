@@ -5,8 +5,7 @@ alias protontricks='flatpak run com.github.Matoking.protontricks'
 DEFAULT_7TH_HEAVEN_DIRECTORY="7th Heaven"
 DEFAULT_7TH_HEAVEN_APP_NAME="7th Heaven"
 
-# Download dependencies
-downloadDependencies() {
+downloadDependency() {
   local REPO=$1
   local FILTER=$2
   local RETURN_VARIABLE=$3
@@ -25,14 +24,9 @@ downloadDependencies() {
   fi
   eval "${RETURN_VARIABLE}=\"$FILENAME\""
 }
-downloadDependencies "tsunamods-codes/7th-Heaven" "*.exe" SEVENHEAVEN
-downloadDependencies "julianxhokaxhiu/FFNx" "*.zip" FFNX
+downloadDependency "tsunamods-codes/7th-Heaven" "*.exe" SEVENHEAVEN
 
-# new line
 echo
-
-# If FFNX somehow isn't there - do not continue as it will fail the unzip
-[ ! -f "$FFNX" ] && echo "$FFNX file for FFNx is required. Re-run the script or download it manually to the root of this folder." && exit
 
 echo -e "Make sure you have Final Fantasy VII installed on Steam.\nPress enter when you are ready to continue."
 read -r
@@ -82,7 +76,7 @@ echo
 echo -e "The installation should be complete. Close the wizard.\nPress enter when you are ready to continue."
 read -r
 
-# Protontricks APP_ID finder + dinput fix
+# Protontricks APP_ID finder
 read -rp "Is your Non-Steam Game named: \"${DEFAULT_7TH_HEAVEN_APP_NAME}\"? [y/N] " USE_DEFAULT_NAME
 
 SEVENTH_HEAVEN_APP_NAME=$DEFAULT_7TH_HEAVEN_APP_NAME
@@ -116,9 +110,6 @@ cp -Rfp "$FF7_LOCATION" "$WINEPATH/drive_c/FF7"
 mkdir -p $WINEPATH/drive_c/FF7/mods/{7thHeaven,textures}
 cp dxvk.conf "$WINEPATH/drive_c/$DEFAULT_7TH_HEAVEN_DIRECTORY"
 echo
-echo "Installing FFNx..."
-unzip -o "$FFNX" -d "$WINEPATH/drive_c/FF7"
-echo
 echo "Altering Steam Shortcut"
 FULL_PATH="$WINEPATH/drive_c/$DEFAULT_7TH_HEAVEN_DIRECTORY"
 SHORTCUTSFILE=$(ls -td ${HOME}/.steam/steam/userdata/* | head -1)/config/shortcuts.vdf
@@ -128,7 +119,7 @@ echo "Done!"
 echo
 echo "Removing & installing dinput..."
 echo
-rm "$WINEPATH/drive_c/windows/syswow64/dinput.dll"
+[ -f "$WINEPATH/drive_c/windows/syswow64/dinput.dll" ] && rm "$WINEPATH/drive_c/windows/syswow64/dinput.dll"
 echo
 protontricks $APP_ID dinput
 echo
