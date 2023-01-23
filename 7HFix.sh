@@ -108,21 +108,33 @@ echo "44000000" > "$WINEPATH/drive_c/.windows-serial"
 [ -d "$WINEPATH/drive_c/FF7" ] && rm -r "$WINEPATH/drive_c/FF7"
 cp -Rfp "$FF7_LOCATION" "$WINEPATH/drive_c/FF7"
 mkdir -p $WINEPATH/drive_c/FF7/mods/{7thHeaven,textures}
-cp dxvk.conf "$WINEPATH/drive_c/$DEFAULT_7TH_HEAVEN_DIRECTORY"
+FULL_PATH="$WINEPATH/drive_c/$DEFAULT_7TH_HEAVEN_DIRECTORY"
+cp dxvk.conf "$FULL_PATH"
+echo "Done!"
+
+echo
+echo "Setting up 7TH Heaven..."
+mkdir -p "$FULL_PATH/7thWorkshop/"
+cp -f ./settings.xml "$FULL_PATH/7thWorkshop/"
+echo "Done!"
+
 echo
 echo "Altering Steam Shortcut"
-FULL_PATH="$WINEPATH/drive_c/$DEFAULT_7TH_HEAVEN_DIRECTORY"
 SHORTCUTSFILE=$(ls -td ${HOME}/.steam/steam/userdata/* | head -1)/config/shortcuts.vdf
 sed -i "s:$(pwd)/${SEVENHEAVEN}:${FULL_PATH}/7th Heaven.exe:" $SHORTCUTSFILE
 sed -i "s:$(pwd):${FULL_PATH}:" $SHORTCUTSFILE
 echo "Done!"
+
 echo
 echo "Removing & installing dinput..."
-echo
+
 [ -f "$WINEPATH/drive_c/windows/syswow64/dinput.dll" ] && rm "$WINEPATH/drive_c/windows/syswow64/dinput.dll"
+
 echo
 protontricks $APP_ID dinput
+
 echo
 clear
 echo "*******  RESTART STEAM BEFORE LAUNCHING THE GAME  *******"
+echo "*******  IMPORTANT ON FIRST OPENING: Re-select FF7 Exe Path with the same one selected  *******"
 echo "7th Heaven Canary has been successfully installed!"
