@@ -114,14 +114,9 @@ echo "Done!"
 
 echo
 echo "Setting up 7TH Heaven..."
-RESET_SETTINGS=0
-read -rp "Do you want to reset 7TH settings? [y/N] "
-if [[ $REPLY =~ ^[Yy]$ ]]; then
-  RESET_SETTINGS=1
-  mkdir -p "$FULL_PATH/7thWorkshop/"
-  cp -f ./settings.xml "$FULL_PATH/7thWorkshop/"
-  echo "Done!"
-fi
+mkdir -p "$FULL_PATH/7thWorkshop/"
+cp -f ./settings.xml "$FULL_PATH/7thWorkshop/"
+echo "Done!"
 
 echo
 echo "Altering Steam Shortcut"
@@ -141,5 +136,5 @@ protontricks $APP_ID dinput
 echo
 clear
 echo "*******  RESTART STEAM BEFORE LAUNCHING THE GAME  *******"
-[ $RESET_SETTINGS == 1 ] && echo "*******  IMPORTANT ON FIRST OPENING: Re-select FF7 Exe Path with the same one selected  *******"
+echo "*******  IMPORTANT ON FIRST OPENING: Re-select FF7 Exe Path with the same one selected  *******"
 echo "7th Heaven Canary has been successfully installed!"
