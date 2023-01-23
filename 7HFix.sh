@@ -28,10 +28,10 @@ downloadDependency "tsunamods-codes/7th-Heaven" "*.exe" SEVENHEAVEN
 
 echo
 
-zenity --info --text="Make sure you have Final Fantasy VII installed on Steam.\nPress OK when you are ready to continue."
+zenity --width=500 --info --text="Make sure you have Final Fantasy VII installed on Steam.\nPress OK when you are ready to continue."
 
-zenity --question --text="Is your FF7 installed to an SD card?" --title="FF7 Install Location"
-if [ $? -eq 1 ] then
+zenity --width=500 --question --text="Is your FF7 installed to an SD card?" --title="FF7 Install Location"
+if [ $? -eq 1 ]; then
   FF7_LOCATION="${HOME}/.local/share/Steam/steamapps/common/FINAL FANTASY VII"
 else
   FF7_LOCATION="/run/media/mmcblk0p1/SteamLibrary/steamapps/common/FINAL FANTASY VII"
@@ -40,49 +40,50 @@ fi
 echo $FF7_LOCATION
 
 # Global path check regardless of option
-[ ! -d "$FF7_LOCATION" ] && zenity --error --text "Cannot find FF7 folder located at $FF7_LOCATION. Fix it and re-run the script." && exit
+[ ! -d "$FF7_LOCATION" ] && zenity --width=500 --error --text "Cannot find FF7 folder located at $FF7_LOCATION. Fix it and re-run the script." && exit
 
 # Now onto installing 7TH-Heaven Canary & Proton-GE
-zenity --info \
+zenity --width=500 --info \
 --title="Installation" \
 --text="Time to install 7th Heaven Canary and configure it for the Steam Deck!\n
 1. Add a game as a \"Non-Steam Game\"\n
 2. Select \""$(pwd)/$SEVENHEAVEN"\"\n
-3. Name it whatever you want but remember that name for later ==
+3. Name it whatever you want but remember that name for later
       Preferred default is: \"$DEFAULT_7TH_HEAVEN_APP_NAME\"\n
 4. Go to the \"Compatibility\" section and click \"Force compatibility\"\n
 5. Select \"Proton-7.XX\" (Where XX is the latest version available)\n
 Run the game. Go through the wizard and install at:\n
-      \"C:\\$DEFAULT_7TH_HEAVEN_DIRECTORY\"\n
+      \"C:&#92;$DEFAULT_7TH_HEAVEN_DIRECTORY\"\n
 6. It's important to install it there otherwise it won't open\n
 <b>==== DO NOT LAUNCH IT AFTER OR DURING THE INSTALLATION ====</b>"
 
-zenity --info --text="The installation should be complete. Close the wizard.\nPress OK when you are ready to continue."
+zenity --width=500 --info --text="The installation should be complete. Close the wizard.\nPress OK when you are ready to continue."
 
 # Protontricks APP_ID finder
-zenity --question --text="Is your Non-Steam Game named: \"${DEFAULT_7TH_HEAVEN_APP_NAME}\"?"
-if [ $? -eq 0 ]
+zenity --width=500 --question --text="Is your Non-Steam Game named: \"${DEFAULT_7TH_HEAVEN_APP_NAME}\"?"
+if [ $? -eq 0 ]; then
   SEVENTH_HEAVEN_APP_NAME=$DEFAULT_7TH_HEAVEN_APP_NAME
 else
-  zenity --entry \
+  SEVENTH_HEAVEN_APP_NAME=$(zenity --width=500 --entry \
   --title="Non-Steam Game Name" \
   --text="What is your Non-Steam Game named?" \
-  --entry-text=SEVENTH_HEAVEN_APP_NAME
+  --entry-text="$DEFAULT_7TH_HEAVEN_APP_NAME")
 fi
 
 echo "Finding APP_ID..."
 APP_ID=$(protontricks -s $SEVENTH_HEAVEN_APP_NAME | grep -Po "(?<=\()[0-9].+(?=\))")
 # Ensures APP_ID is valid
-[[ ! $APP_ID =~ ^[0-9]+$ ]] && zenity --error --text="APP_ID was not found for \"$SEVENTH_HEAVEN_APP_NAME\". Make sure the name entered matches and retry." && exit
+[[ ! $APP_ID =~ ^[0-9]+$ ]] && zenity --width=500 --error --text="APP_ID was not found for \"$SEVENTH_HEAVEN_APP_NAME\". Make sure the name entered matches and retry." && exit
 
 echo "Resolving PFX path..."
 WINEPATH="${HOME}/.steam/steam/steamapps/compatdata/$APP_ID/pfx"
 
-zenity --question --title="Path Detected!" --text="PFX path detected at $WINEPATH\n
+zenity --width=500 --question --title="Path Detected!" --text="PFX path detected at $WINEPATH\n
 Do you want to use this path?"
 if [[ $? -eq 1 ]]; then
-  WINEPATH=(zenity --entry --title="Enter Path" --text="Manually enter PFX path:")
-[ ! -d "$WINEPATH" ] && zenity --error --title="Invalid path!" --text="Invalid PFX path at $WINEPATH. Abort." && exit
+  WINEPATH=(zenity --width=500 --entry --title="Enter Path" --text="Manually enter PFX path:")
+[ ! -d "$WINEPATH" ] && zenity --width=500 --error --title="Invalid path!" --text="Invalid PFX path at $WINEPATH. Abort." && exit
+fi
 
 echo
 echo "Copying FF7 directory..."
@@ -111,15 +112,14 @@ echo "Done!"
 
 echo
 echo "Removing & installing dinput..."
-
 [ -f "$WINEPATH/drive_c/windows/syswow64/dinput.dll" ] && rm "$WINEPATH/drive_c/windows/syswow64/dinput.dll"
-
 echo
 protontricks $APP_ID dinput
 
 echo
-zenity --info \
---title="Done!"
---text="<b>*******  RESTART STEAM BEFORE LAUNCHING THE GAME  *******
-*******  IMPORTANT ON FIRST OPENING: Re-select FF7 EXE Path with the same one selected  *******</b>\n
-7th Heaven Canary has been successfully installed!"
+zenity --width=500 --info \
+--title="Done!" \
+--text="7th Heaven Canary has been successfully installed!\n
+<b>*******  IMPORTANT *******
+1. RESTART STEAM BEFORE LAUNCHING THE GAME
+2. ON FIRST LAUNCH: Re-select FF7 EXE Path with the same one selected</b>\n"
