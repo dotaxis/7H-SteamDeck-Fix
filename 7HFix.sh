@@ -105,7 +105,7 @@ echo "Done!"
 
 echo
 echo "Copying ff7.exe..."
-cp -f "$FULL_PATH/Resources/FF7_1.02_Eng_Patch/ff7.exe" "$WINEPATH/drive_c/FF7/"
+cp -f "$FULL_PATH/Resources/FF7_1.02_Eng_Patch/ff7.exe" "$WINEPATH/drive_c/FF7/ff7.exe"
 echo "Done!"
 
 echo
@@ -127,9 +127,18 @@ echo "Copying timeout.exe..."
 cp -f timeout.exe "$WINEPATH/drive_c/windows/system32/"
 echo "Done!"
 
-#echo
-#echo "Copying saves..."
-# TODO
+echo
+echo "Copying saves..."
+for file in "$WINEPATH/drive_c/FF7/save/"*.ff7 ; do
+  [ -e "$f" ] mv -- "$file" "$file.bak"
+done
+SAVES_FOLDER=$(ls -td ${HOME}/.steam/steam/steamapps/compatdata/39140/pfx/drive_c/users/steamuser/Documents/Square\ Enix/FINAL\ FANTASY\ VII\ Steam/user_* | head -1)
+mkdir -p $WINEPATH/drive_c/FF7/save
+cd "$SAVES_FOLDER"
+for file in *".ff7" ; do
+  cp -f -- "$file" "$WINEPATH/drive_c/FF7/save/$file"
+done
+echo "Done!"
 
 echo
 echo "Removing & installing dinput..."
