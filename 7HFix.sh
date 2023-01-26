@@ -142,5 +142,4 @@ zenity --width=500 --info \
 --title="Done!" \
 --text="7th Heaven Canary has been successfully installed!\n
 <b>*******  IMPORTANT *******
-1. RESTART STEAM BEFORE LAUNCHING THE GAME
-2. ON FIRST LAUNCH: Re-select FF7 EXE Path with the same one selected</b>\n"
+RESTART STEAM BEFORE LAUNCHING THE GAME</b>"
