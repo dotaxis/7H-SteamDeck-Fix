@@ -128,7 +128,7 @@ cp -f timeout.exe "$WINEPATH/drive_c/windows/system32/"
 echo "Done!"
 
 zenity --width=500 --question --title="Save Files" --text="Do you want to copy your save files from Vanilla FF7?"
-if [[ $? -eq 1 ]]; then
+if [[ $? -eq 0 ]]; then
   echo
   echo "Copying saves..."
   for file in "$WINEPATH/drive_c/FF7/save/"*.ff7 ; do
