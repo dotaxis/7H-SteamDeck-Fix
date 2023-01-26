@@ -98,17 +98,38 @@ cp dxvk.conf "$FULL_PATH"
 echo "Done!"
 
 echo
-echo "Setting up 7TH Heaven..."
+echo "Setting up 7th Heaven..."
 mkdir -p "$FULL_PATH/7thWorkshop/"
 cp -f ./settings.xml "$FULL_PATH/7thWorkshop/"
 echo "Done!"
 
 echo
-echo "Altering Steam Shortcut"
+echo "Copying ff7.exe..."
+cp -f "$FULL_PATH/Resources/FF7_1.02_Eng_Patch/ff7.exe" "$WINEPATH/drive_c/FF7/"
+echo "Done!"
+
+echo
+echo "Altering Steam shortcut..."
 SHORTCUTSFILE=$(ls -td ${HOME}/.steam/steam/userdata/* | head -1)/config/shortcuts.vdf
 sed -i "s:$(pwd)/${SEVENHEAVEN}:${FULL_PATH}/7th Heaven.exe:" $SHORTCUTSFILE
 sed -i "s:$(pwd):${FULL_PATH}:" $SHORTCUTSFILE
 echo "Done!"
+
+echo
+echo "Copying robocopy.bat..."
+[ -f "$WINEPATH/drive_c/windows/syswow64/robocopy.exe" ] && rm "$WINEPATH/drive_c/windows/syswow64/robocopy.exe"
+[ -f "$WINEPATH/drive_c/windows/system32/robocopy.exe" ] && rm "$WINEPATH/drive_c/windows/system32/robocopy.exe"
+cp -f robocopy.bat "$WINEPATH/drive_c/windows/system32/"
+echo "Done!"
+
+echo
+echo "Copying timeout.exe..."
+cp -f timeout.exe "$WINEPATH/drive_c/windows/system32/"
+echo "Done!"
+
+#echo
+#echo "Copying saves..."
+# TODO
 
 echo
 echo "Removing & installing dinput..."
