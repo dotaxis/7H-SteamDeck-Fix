@@ -42,7 +42,7 @@ echo $FF7_LOCATION
 # Global path check regardless of option
 [ ! -d "$FF7_LOCATION" ] && zenity --width=500 --error --text "Cannot find FF7 folder located at $FF7_LOCATION. Fix it and re-run the script." && exit
 
-# Now onto installing 7TH-Heaven Canary & Proton-GE
+# Now onto installing 7TH-Heaven Canary & configuring Proton
 zenity --width=500 --info \
 --title="Installation" \
 --text="Time to install 7th Heaven Canary and configure it for the Steam Deck!\n
@@ -55,7 +55,7 @@ zenity --width=500 --info \
 Run the game. Go through the wizard and install at:\n
       \"C:&#92;$DEFAULT_7TH_HEAVEN_DIRECTORY\"\n
 6. It's important to install it there otherwise it won't open\n
-<b>==== DO NOT LAUNCH IT AFTER OR DURING THE INSTALLATION ====</b>"
+<b>⚠️ DO NOT LAUNCH IT AFTER OR DURING THE INSTALLATION</b>"
 
 zenity --width=500 --info --text="The installation should be complete. Close the wizard.\nPress OK when you are ready to continue."
 
@@ -91,16 +91,21 @@ mkdir -p "$WINEPATH/drive_c"
 echo "FF7DISC1" > "$WINEPATH/drive_c/.windows-label"
 echo "44000000" > "$WINEPATH/drive_c/.windows-serial"
 [ -d "$WINEPATH/drive_c/FF7" ] && rm -r "$WINEPATH/drive_c/FF7"
-cp -Rfp "$FF7_LOCATION" "$WINEPATH/drive_c/FF7"
+
+rsync -av --progress "$FF7_LOCATION/" "$WINEPATH/drive_c/FF7" |
+   awk -f rsync.awk |
+   zenity --width=300 --progress --title "Copying FF7 Directory" \
+      --text="Copying..." --percentage=0 --auto-kill
+
 mkdir -p $WINEPATH/drive_c/FF7/mods/{7thHeaven,textures}
 FULL_PATH="$WINEPATH/drive_c/$DEFAULT_7TH_HEAVEN_DIRECTORY"
-cp dxvk.conf "$FULL_PATH"
+cp deps/dxvk.conf "$FULL_PATH"
 echo "Done!"
 
 echo
 echo "Setting up 7th Heaven..."
 mkdir -p "$FULL_PATH/7thWorkshop/"
-cp -f ./settings.xml "$FULL_PATH/7thWorkshop/"
+cp -f deps/settings.xml "$FULL_PATH/7thWorkshop/"
 echo "Done!"
 
 echo
@@ -119,12 +124,12 @@ echo
 echo "Copying robocopy.bat..."
 [ -f "$WINEPATH/drive_c/windows/syswow64/robocopy.exe" ] && rm "$WINEPATH/drive_c/windows/syswow64/robocopy.exe"
 [ -f "$WINEPATH/drive_c/windows/system32/robocopy.exe" ] && rm "$WINEPATH/drive_c/windows/system32/robocopy.exe"
-cp -f robocopy.bat "$WINEPATH/drive_c/windows/system32/"
+cp -f deps/robocopy.bat "$WINEPATH/drive_c/windows/system32/"
 echo "Done!"
 
 echo
 echo "Copying timeout.exe..."
-cp -f timeout.exe "$WINEPATH/drive_c/windows/system32/"
+cp -f deps/timeout.exe "$WINEPATH/drive_c/windows/system32/"
 echo "Done!"
 
 zenity --width=500 --question --title="Save Files" --text="Do you want to copy your save files from Vanilla FF7?"
@@ -153,5 +158,7 @@ echo
 zenity --width=500 --info \
 --title="Done!" \
 --text="7th Heaven Canary has been successfully installed!\n
-<b>*******  IMPORTANT *******
-RESTART STEAM BEFORE LAUNCHING THE GAME</b>"
+<b>******* IMPORTANT *******
+⚠️ RESTART STEAM BEFORE LAUNCHING THE GAME
+⚠️ CLICK SAVE THE FIRST TIME YOU OPEN 7TH HEAVEN
+⚠️ RUN THE GAME ONCE IN ORDER TO INSTALL FFNx</b>"
