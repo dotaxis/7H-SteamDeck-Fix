@@ -137,10 +137,10 @@ if [[ $? -eq 0 ]]; then
   echo
   echo "Copying saves..."
   for file in "$WINEPATH/drive_c/FF7/save/"*.ff7 ; do
-    [ -e "$f" ] mv -- "$file" "$file.bak"
+    [[ -e "$file" ]] && mv -- "$file" "$file.bak"
   done
   SAVES_FOLDER=$(ls -td ${HOME}/.steam/steam/steamapps/compatdata/39140/pfx/drive_c/users/steamuser/Documents/Square\ Enix/FINAL\ FANTASY\ VII\ Steam/user_* | head -1)
-  mkdir -p $WINEPATH/drive_c/FF7/save
+  [[ ! -d "$WINEPATH/drive_c/FF7/save" ]] && mkdir -p $WINEPATH/drive_c/FF7/save
   cd "$SAVES_FOLDER"
   for file in *".ff7" ; do
     cp -f -- "$file" "$WINEPATH/drive_c/FF7/save/$file"
