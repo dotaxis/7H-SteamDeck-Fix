@@ -97,7 +97,7 @@ rsync -av --progress "$FF7_LOCATION/" "$WINEPATH/drive_c/FF7" |
    zenity --width=300 --progress --title "Copying FF7 Directory" \
       --text="Copying..." --percentage=0 --auto-kill
 
-mkdir -p $WINEPATH/drive_c/FF7/mods/{7th Heaven,textures}
+mkdir -p $WINEPATH/drive_c/FF7/mods/{"7th Heaven",textures}
 FULL_PATH="$WINEPATH/drive_c/$DEFAULT_7TH_HEAVEN_DIRECTORY"
 cp deps/dxvk.conf "$FULL_PATH"
 echo "Done!"
