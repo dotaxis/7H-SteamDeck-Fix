@@ -114,10 +114,11 @@ cp -f "$FULL_PATH/Resources/FF7_1.02_Eng_Patch/ff7.exe" "$WINEPATH/drive_c/FF7/f
 echo "Done!"
 
 echo
-echo "Altering Steam shortcut..."
-SHORTCUTSFILE=$(ls -td ${HOME}/.steam/steam/userdata/* | head -1)/config/shortcuts.vdf
-sed -i "s:$(pwd)/${SEVENHEAVEN}:${FULL_PATH}/7th Heaven.exe:" $SHORTCUTSFILE
-sed -i "s:$(pwd):${FULL_PATH}:" $SHORTCUTSFILE
+echo "Altering Steam 7th Heaven shortcut for all Steam accounts..."
+for SHORTCUTSFILE in ${HOME}/.steam/steam/userdata/*/config/shortcuts.vdf ; do
+  sed -i "s:$(pwd)/${SEVENHEAVEN}:${FULL_PATH}/7th Heaven.exe:" $SHORTCUTSFILE
+  sed -i "s:$(pwd):${FULL_PATH}:" $SHORTCUTSFILE
+done
 echo "Done!"
 
 echo
