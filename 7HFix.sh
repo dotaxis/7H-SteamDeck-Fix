@@ -92,10 +92,12 @@ echo "FF7DISC1" > "$WINEPATH/drive_c/.windows-label"
 echo "44000000" > "$WINEPATH/drive_c/.windows-serial"
 [ -d "$WINEPATH/drive_c/FF7" ] && rm -r "$WINEPATH/drive_c/FF7"
 
-rsync -av --progress "$FF7_LOCATION/" "$WINEPATH/drive_c/FF7" |
-   awk -f rsync.awk |
-   zenity --width=300 --progress --title "Copying FF7 Directory" \
-      --text="Copying..." --percentage=0 --auto-kill
+# Copying Replaced With Symlink by Request
+ln -fs "$FF7_LOCATION/" "$WINEPATH/drive_c/FF7"
+#rsync -av --progress "$FF7_LOCATION/" "$WINEPATH/drive_c/FF7" |
+#   awk -f rsync.awk |
+#   zenity --width=300 --progress --title "Copying FF7 Directory" \
+#      --text="Copying..." --percentage=0 --auto-kill
 
 mkdir -p $WINEPATH/drive_c/FF7/mods/{"7th Heaven",textures}
 FULL_PATH="$WINEPATH/drive_c/$DEFAULT_7TH_HEAVEN_DIRECTORY"
