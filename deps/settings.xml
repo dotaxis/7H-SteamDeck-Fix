@@ -29,8 +29,8 @@
   </Subscriptions>
   <LibraryLocation>C:\FF7\mods\7th Heaven</LibraryLocation>
   <FF7Exe>C:\FF7\ff7.exe</FF7Exe>
-  <FFNxUpdateChannel>Canary</FFNxUpdateChannel>
-  <AppUpdateChannel>Canary</AppUpdateChannel>
+  <FFNxUpdateChannel>Stable</FFNxUpdateChannel>
+  <AppUpdateChannel>Stable</AppUpdateChannel>
   <Options>
     <GeneralOptions>AutoActiveNewMods</GeneralOptions>
     <GeneralOptions>AutoImportMods</GeneralOptions>
