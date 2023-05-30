@@ -1,8 +1,8 @@
 # 7H-SteamDeck-Fix
-Streamlining the installation process of 7th Heaven Canary on Steam Deck
+Streamlining the installation process of 7th Heaven on Steam Deck
 
 The script provided **AUTOMATICALLY** downloads:
-* [7th-Heaven](https://github.com/tsunamods-codes/7th-Heaven/releases/) (Canary)
+* [7th-Heaven](https://github.com/tsunamods-codes/7th-Heaven/releases/) (Stable)
 
 Steps:
 * Clone the repository and put it anywhere you want
