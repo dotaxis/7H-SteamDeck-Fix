@@ -51,7 +51,7 @@ zenity --width=500 --info \
 3. Name it whatever you want but remember that name for later
       Preferred default is: \"$DEFAULT_7TH_HEAVEN_APP_NAME\"\n
 4. Go to the \"Compatibility\" section and click \"Force compatibility\"\n
-5. Select \"Proton-7.XX\" (Where XX is the latest version available)\n
+5. Select \"Proton-8.XX\" (Where XX is the latest version available)\n
 Run the game. Go through the wizard and install at:\n
       \"C:&#92;$DEFAULT_7TH_HEAVEN_DIRECTORY\"\n
 6. It's important to install it there otherwise it won't open\n
@@ -92,7 +92,7 @@ echo "FF7DISC1" > "$WINEPATH/drive_c/.windows-label"
 echo "44000000" > "$WINEPATH/drive_c/.windows-serial"
 [ -d "$WINEPATH/drive_c/FF7" ] && rm -r "$WINEPATH/drive_c/FF7"
 
-# Copying Replaced With Symlink by Request
+# Symlink C:\FF7 to install path
 ln -fs "$FF7_LOCATION/" "$WINEPATH/drive_c/FF7"
 
 mkdir -p $WINEPATH/drive_c/FF7/mods/{"7th Heaven",textures}
