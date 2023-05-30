@@ -10,7 +10,7 @@ downloadDependency() {
   local FILTER=$2
   local RETURN_VARIABLE=$3
   local RELEASE_URL=$(
-    curl -s https://api.github.com/repos/"$REPO"/releases/tags/canary \
+    curl -s https://api.github.com/repos/"$REPO"/releases \
     | grep "browser_download_url.$FILTER" \
     | head -1 \
     | cut -d : -f 2,3 \
@@ -51,7 +51,7 @@ zenity --width=500 --info \
 3. Name it whatever you want but remember that name for later
       Preferred default is: \"$DEFAULT_7TH_HEAVEN_APP_NAME\"\n
 4. Go to the \"Compatibility\" section and click \"Force compatibility\"\n
-5. Select \"Proton-7.XX\" (Where XX is the latest version available)\n
+5. Select \"Proton-8.XX\" (Where XX is the latest version available)\n
 Run the game. Go through the wizard and install at:\n
       \"C:&#92;$DEFAULT_7TH_HEAVEN_DIRECTORY\"\n
 6. It's important to install it there otherwise it won't open\n
@@ -71,7 +71,7 @@ else
 fi
 
 echo "Finding APP_ID..."
-APP_ID=$(protontricks -s $SEVENTH_HEAVEN_APP_NAME | grep -Po "(?<=\()[0-9].+(?=\))")
+APP_ID=$(protontricks -s $SEVENTH_HEAVEN_APP_NAME | grep -P "Non-Steam shortcut: $SEVENTH_HEAVEN_APP_NAME \([0-9]+\)" | grep -Po "(?<=\()[0-9].+(?=\))")
 # Ensures APP_ID is valid
 [[ ! $APP_ID =~ ^[0-9]+$ ]] && zenity --width=500 --error --text="APP_ID was not found for \"$SEVENTH_HEAVEN_APP_NAME\". Make sure the name entered matches and retry." && exit
 
@@ -92,10 +92,8 @@ echo "FF7DISC1" > "$WINEPATH/drive_c/.windows-label"
 echo "44000000" > "$WINEPATH/drive_c/.windows-serial"
 [ -d "$WINEPATH/drive_c/FF7" ] && rm -r "$WINEPATH/drive_c/FF7"
 
-rsync -av --progress "$FF7_LOCATION/" "$WINEPATH/drive_c/FF7" |
-   awk -f rsync.awk |
-   zenity --width=300 --progress --title "Copying FF7 Directory" \
-      --text="Copying..." --percentage=0 --auto-kill
+# Symlink C:\FF7 to install path
+ln -fs "$FF7_LOCATION/" "$WINEPATH/drive_c/FF7"
 
 mkdir -p $WINEPATH/drive_c/FF7/mods/{"7th Heaven",textures}
 FULL_PATH="$WINEPATH/drive_c/$DEFAULT_7TH_HEAVEN_DIRECTORY"
