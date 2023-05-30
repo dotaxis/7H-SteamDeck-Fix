@@ -71,8 +71,7 @@ else
 fi
 
 echo "Finding APP_ID..."
-APP_ID=$(protontricks -s $SEVENTH_HEAVEN_APP_NAME | grep "$SEVENTH_HEAVEN_APP_NAME (")
-APP_ID=$(echo "$APP_ID" | grep -Po "(?<=\()[0-9].+(?=\))")
+APP_ID=$(protontricks -s $SEVENTH_HEAVEN_APP_NAME | grep -P "Non-Steam shortcut: $SEVENTH_HEAVEN_APP_NAME \([0-9]+\)" | grep -Po "(?<=\()[0-9].+(?=\))")
 # Ensures APP_ID is valid
 [[ ! $APP_ID =~ ^[0-9]+$ ]] && zenity --width=500 --error --text="APP_ID was not found for \"$SEVENTH_HEAVEN_APP_NAME\". Make sure the name entered matches and retry." && exit
 
