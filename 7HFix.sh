@@ -5,6 +5,17 @@ alias protontricks='flatpak run com.github.Matoking.protontricks'
 DEFAULT_7TH_HEAVEN_DIRECTORY="7th Heaven"
 DEFAULT_7TH_HEAVEN_APP_NAME="7th Heaven"
 
+while getopts "c" opt; do
+  case $opt in
+    c)
+      copy_ff7=1
+      ;;
+    *)
+      copy_ff7=0
+      ;;
+  esac
+done
+
 downloadDependency() {
   local REPO=$1
   local FILTER=$2
@@ -92,8 +103,16 @@ echo "FF7DISC1" > "$WINEPATH/drive_c/.windows-label"
 echo "44000000" > "$WINEPATH/drive_c/.windows-serial"
 [ -d "$WINEPATH/drive_c/FF7" ] && rm -r "$WINEPATH/drive_c/FF7"
 
-# Symlink C:\FF7 to install path
-ln -fs "$FF7_LOCATION/" "$WINEPATH/drive_c/FF7"
+if [ "$copy_ff7" -eq 1 ]; then
+  # Copy FF7 directory to C:\FF7
+  rsync -av --progress "$FF7_LOCATION/" "$WINEPATH/drive_c/FF7" |
+  awk -f rsync.awk |
+  zenity --width=300 --progress --title "Copying FF7 Directory" \
+  --text="Copying..." --percentage=0 --auto-kill
+else
+  # Symlink C:\FF7 to install path
+  ln -fs "$FF7_LOCATION/" "$WINEPATH/drive_c/FF7"
+fi
 
 mkdir -p $WINEPATH/drive_c/FF7/mods/{"7th Heaven",textures}
 FULL_PATH="$WINEPATH/drive_c/$DEFAULT_7TH_HEAVEN_DIRECTORY"
