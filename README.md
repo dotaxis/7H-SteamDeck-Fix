@@ -11,6 +11,8 @@ Steps:
 * Run the script with `./7HFix.sh`
 * Follow the steps and enjoy!
 
+
+
 Advanced:
 * Use `-c` flag to copy FF7 instead of using a symlink
-* If you are unsure, do not use the `-c` flag
+* If you are unsure, run the script normally
