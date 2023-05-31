@@ -10,3 +10,7 @@ Steps:
 * Type `chmod +x 7HFix.sh`
 * Run the script with `./7HFix.sh`
 * Follow the steps and enjoy!
+
+Advanced:
+* Use `-c` flag to copy FF7 instead of using a symlink
+* If you are unsure, do not use the `-c` flag
