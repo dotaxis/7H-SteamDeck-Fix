@@ -107,7 +107,7 @@ echo "44000000" > "$WINEPATH/drive_c/.windows-serial"
 if [ "$copy_ff7" -eq 1 ]; then
   # Copy FF7 directory to C:\FF7
   rsync -av --progress "$FF7_LOCATION/" "$WINEPATH/drive_c/FF7" |
-  awk -f rsync.awk |
+  awk -f deps/rsync.awk |
   zenity --width=300 --progress --title "Copying FF7 Directory" \
   --text="Copying..." --percentage=0 --auto-kill
 else
