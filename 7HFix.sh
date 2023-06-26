@@ -5,6 +5,7 @@ alias protontricks='flatpak run com.github.Matoking.protontricks'
 DEFAULT_7TH_HEAVEN_DIRECTORY="7th Heaven"
 DEFAULT_7TH_HEAVEN_APP_NAME="7th Heaven"
 
+# Check for -c flag
 copy_ff7=0
 while getopts "c" opt; do
   case $opt in
@@ -14,6 +15,7 @@ while getopts "c" opt; do
   esac
 done
 
+# Download 7th Heaven from Github
 downloadDependency() {
   local REPO=$1
   local FILTER=$2
