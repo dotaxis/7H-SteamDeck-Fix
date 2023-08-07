@@ -92,7 +92,7 @@ fi
 # Option to move 7H to SD card
 zenity --width=500 --question --title="Move to SD Card?" --text="Do you want to move 7th Heaven to the SD Card?\n
 We'll put it under \"7th Heaven\" in the root of the SD card."
-if [[ $? -eq 0 then ]]
+if [[ $? -eq 0 ]]; then
   7TH_HEAVEN_SDCARD="/run/media/mmcblk0p1/7th Heaven"
   mkdir "$7TH_HEAVEN_SDCARD"
   mv "${HOME}/.steam/steam/steamapps/compatdata/$APP_ID/*" "$7TH_HEAVEN_SDCARD/"
