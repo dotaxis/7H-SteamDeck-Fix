@@ -1,6 +1,7 @@
 #!/bin/bash
 shopt -s expand_aliases
 alias protontricks='flatpak run com.github.Matoking.protontricks'
+flatpak override --user --filesystem=/run/media/mmcblk0p1 com.github.Matoking.protontricks
 
 DEFAULT_7TH_HEAVEN_DIRECTORY="7th Heaven"
 DEFAULT_7TH_HEAVEN_APP_NAME="7th Heaven"
