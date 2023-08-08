@@ -5,6 +5,7 @@ The script provided **AUTOMATICALLY** downloads:
 * [7th-Heaven](https://github.com/tsunamods-codes/7th-Heaven/releases/) (Stable)
 
 Steps:
+* Install protontricks from the Discover Store
 * Clone the repository and put it anywhere you want
 * Right click on `7HFix.sh` and select `Open Terminal Here`
 * Type `chmod +x 7HFix.sh`
