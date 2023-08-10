@@ -18,3 +18,8 @@ Steps:
 Advanced:
 * Use `-c` flag to copy FF7 instead of using a symlink
 * If you are unsure, run the script normally
+
+<br>
+
+Wanna buy me a coffee?
+* https://ko-fi.com/dotaxis
