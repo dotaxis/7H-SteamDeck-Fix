@@ -148,11 +148,14 @@ fi
 [ -f "$WINEPATH/drive_c/windows/syswow64/dinput.dll" ] && rm "$WINEPATH/drive_c/windows/syswow64/dinput.dll"
 protontricks $APP_ID dinput
 
+# Restart Steam
+kill $(ps aux | grep '[s]team -steamdeck' | awk '{print $2}')
+sleep 10
+steam > /dev/null 2>&1 & disown
 
 zenity --width=500 --info \
 --title="Done!" \
 --text="7th Heaven Canary has been successfully installed!\n
 <b>******* IMPORTANT *******
-⚠️ RESTART STEAM BEFORE LAUNCHING THE GAME
 ⚠️ CLICK SAVE THE FIRST TIME YOU OPEN 7TH HEAVEN
 ⚠️ RUN THE GAME ONCE IN ORDER TO INSTALL FFNx</b>"
