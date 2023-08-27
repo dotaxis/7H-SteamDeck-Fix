@@ -84,14 +84,6 @@ APP_ID=$(protontricks -s $SEVENTH_HEAVEN_APP_NAME | grep -P "Non-Steam shortcut:
 [[ ! $APP_ID =~ ^[0-9]+$ ]] && zenity --width=500 --error --text="APP_ID was not found for \"$SEVENTH_HEAVEN_APP_NAME\". Make sure the name entered matches and retry." && exit
 WINEPATH="${HOME}/.steam/steam/steamapps/compatdata/$APP_ID/pfx"
 
-# Check path
-zenity --width=500 --question --title="Path Detected!" --text="PFX path detected at $WINEPATH\n
-Do you want to use this path?"
-if [[ $? -eq 1 ]]; then
-  WINEPATH=(zenity --width=500 --entry --title="Enter Path" --text="Manually enter PFX path:")
-[ ! -d "$WINEPATH" ] && zenity --width=500 --error --title="Invalid path!" --text="Invalid PFX path at $WINEPATH. Abort." && exit
-fi
-
 # Option to move 7H to SD card
 zenity --width=500 --question --title="Move to SD Card?" --text="Do you want to move 7th Heaven to the SD Card?\n
 We'll put it under \"7th Heaven\" in the root of the SD card."
