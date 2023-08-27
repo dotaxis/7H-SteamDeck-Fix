@@ -83,13 +83,19 @@ APP_ID=$(protontricks -s $SEVENTH_HEAVEN_APP_NAME | grep -P "Non-Steam shortcut:
 [[ ! $APP_ID =~ ^[0-9]+$ ]] && zenity --width=500 --error --text="APP_ID was not found for \"$SEVENTH_HEAVEN_APP_NAME\". Make sure the name entered matches and retry." && exit
 WINEPATH="${HOME}/.steam/steam/steamapps/compatdata/$APP_ID/pfx"
 
-# Option to move 7H to SD card
-zenity --width=500 --question --title="Move to SD Card?" --text="Do you want to move 7th Heaven to the SD Card?\n
-We'll put it under \"7th Heaven\" in the root of the SD card."
-if [[ $? -eq 0 ]]; then
-  SDCARD_FOLDER="/run/media/mmcblk0p1/7th Heaven"
-  mv "${HOME}/.steam/steam/steamapps/compatdata/$APP_ID" "$SDCARD_FOLDER"
-  ln -fs "$SDCARD_FOLDER" "${HOME}/.steam/steam/steamapps/compatdata/$APP_ID"
+# Option to move 7H to SD card when using -c flag
+if [ "$copy_ff7" -eq 1 ]; then
+  zenity --width=500 --question --title="Move to SD Card?" --text="Do you want to move 7th Heaven to the SD Card?\n
+  We'll put it under \"7th Heaven\" in the root of the SD card."
+  if [[ $? -eq 0 ]]; then
+    SDCARD_FOLDER="/run/media/mmcblk0p1/7th Heaven"
+    rsync -av --progress "${HOME}/.steam/steam/steamapps/compatdata/$APP_ID/" "$SDCARD_FOLDER" |
+    awk -f deps/rsync.awk |
+    zenity --width=300 --progress --title "Moving 7th Heaven Directory" \
+    --text="Moving..." --percentage=0 --auto-kill
+    rm -rf "${HOME}/.steam/steam/steamapps/compatdata/$APP_ID"
+    ln -fs "$SDCARD_FOLDER/" "${HOME}/.steam/steam/steamapps/compatdata/$APP_ID"
+  fi
 fi
 
 # No-CD fix
