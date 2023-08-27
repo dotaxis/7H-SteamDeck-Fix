@@ -6,20 +6,19 @@ Video Tutorial:
 
 The script provided **AUTOMATICALLY** downloads:
 * [7th-Heaven](https://github.com/tsunamods-codes/7th-Heaven/releases/) (Stable)
+* Protontricks
 
 Steps:
-* Install protontricks from the Discover Store
-* Clone the repository and put it anywhere you want
-* Right click on `7HFix.sh` and select `Open Terminal Here`
-* Type `chmod +x 7HFix.sh`
-* Run the script with `./7HFix.sh`
+* [Download zip](https://github.com/dotaxis/7H-SteamDeck-Fix/archive/refs/heads/main.zip) and extract it anywhere you like
+* Right-click on `7HFix.sh` and select `Run In Konsole`
 * Follow the steps and enjoy!
 
 Advanced:
-* Use `-c` flag to copy FF7 instead of using a symlink
+* Open a terminal and use `./7HFix.sh -c` to copy FF7 instead of using a symlink
+* An option will be given to move 7th Heaven to your SD card
 * If you are unsure, run the script normally
 
 <br>
 
-Wanna buy me a coffee?
-* https://ko-fi.com/dotaxis
+## Donate
+https://ko-fi.com/dotaxis
