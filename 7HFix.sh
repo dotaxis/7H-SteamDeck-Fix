@@ -96,10 +96,9 @@ fi
 zenity --width=500 --question --title="Move to SD Card?" --text="Do you want to move 7th Heaven to the SD Card?\n
 We'll put it under \"7th Heaven\" in the root of the SD card."
 if [[ $? -eq 0 ]]; then
-  7TH_HEAVEN_SDCARD="/run/media/mmcblk0p1/7th Heaven"
-  mkdir "$7TH_HEAVEN_SDCARD"
-  mv "${HOME}/.steam/steam/steamapps/compatdata/$APP_ID/*" "$7TH_HEAVEN_SDCARD/"
-  ln -fs "$7TH_HEAVEN_SDCARD/" "${HOME}/.steam/steam/steamapps/compatdata/$APP_ID"
+  SDCARD_FOLDER="/run/media/mmcblk0p1/7th Heaven"
+  mv "${HOME}/.steam/steam/steamapps/compatdata/$APP_ID" "$SDCARD_FOLDER"
+  ln -fs "$SDCARD_FOLDER" "${HOME}/.steam/steam/steamapps/compatdata/$APP_ID"
 fi
 
 # No-CD fix
