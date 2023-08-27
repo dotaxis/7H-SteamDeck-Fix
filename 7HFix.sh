@@ -43,15 +43,14 @@ downloadDependency "tsunamods-codes/7th-Heaven" "*.exe" SEVENHEAVEN
 
 zenity --width=500 --info --text="Make sure you have Final Fantasy VII installed on Steam.\nPress OK when you are ready to continue."
 
-# Set install location
-zenity --width=500 --question --text="Is your FF7 installed to an SD card?" --title="FF7 Install Location"
-if [ $? -eq 1 ]; then
-  FF7_LOCATION="${HOME}/.local/share/Steam/steamapps/common/FINAL FANTASY VII"
-else
-  FF7_LOCATION="/run/media/mmcblk0p1/SteamLibrary/steamapps/common/FINAL FANTASY VII"
-  [ ! -d "$FF7_LOCATION" ] && FF7_LOCATION="/run/media/mmcblk0p1/steamapps/common/FINAL FANTASY VII"
-fi
-[ ! -d "$FF7_LOCATION" ] && zenity --width=500 --error --text "Cannot find FF7 folder located at $FF7_LOCATION. Fix it and re-run the script." && exit
+# Detect install location
+FF7_LOCATION="${HOME}/.local/share/Steam/steamapps/common/FINAL FANTASY VII"
+[ ! -d "$FF7_LOCATION" ] && FF7_LOCATION="/run/media/mmcblk0p1/SteamLibrary/steamapps/common/FINAL FANTASY VII"
+[ ! -d "$FF7_LOCATION" ] && FF7_LOCATION="/run/media/mmcblk0p1/steamapps/common/FINAL FANTASY VII"
+[ ! -d "$FF7_LOCATION" ] && FF7_LOCATION=$(zenity --width=500 --entry \
+  --title="FF7 Location" \
+  --text="Enter the location of your FINAL FANTASY VII folder." \
+  --entry-text="${HOME}/.local/share/Steam/steamapps/common/FINAL FANTASY VII")
 
 # Instructions popup
 zenity --width=500 --info \
